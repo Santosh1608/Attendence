@@ -1,0 +1,127 @@
+{% extends 'base.html' %} {%block head%}
+<title>class_attendence</title>
+{%endblock%} {% block body %} {% if attendence and flag == "show"%}
+<p style="text-align: center; color: white">
+  Attendence taken by {{attendence[0]['teachername'].capitalize()}}
+</p>
+<table style="color: white" class="table" style="margin-bottom: 3px">
+  <thead>
+    <tr>
+      <th scope="col">USN</th>
+      <th scope="col">NAME</th>
+      <th scope="col">PRESENT</th>
+      <th scope="col">ABSENT</th>
+    </tr>
+  </thead>
+  {% for student in attendence%}
+  <tbody>
+    <tr>
+      <th scope="row">{{student["usn"]}}</th>
+      <td>{{student["name"]}}</td>
+      {% if student["present"] == 1%}
+      <td>
+        <input
+          type="radio"
+          name="{{attendence.index(student)+1}}"
+          value="present"
+          checked
+        />
+      </td>
+      <td>
+        <input
+          type="radio"
+          name="{{attendence.index(student)+1}}"
+          value="absent"
+          disabled
+        />
+      </td>
+
+      {%else%}
+      <td>
+        <input
+          type="radio"
+          name="{{attendence.index(student)+1}}"
+          value="present"
+          disabled
+        />
+      </td>
+      <td>
+        <input
+          type="radio"
+          name="{{attendence.index(student)+1}}"
+          value="absent"
+          checked
+        />
+      </td>
+      {%endif%}
+    </tr>
+  </tbody>
+  {%endfor%}
+</table>
+{%endif%} {% if attendence and flag == "edit"%}
+<form action="/edit/{{date}}" method="post">
+  <table class="table" style="margin-bottom: 3px">
+    <thead>
+      <tr>
+        <th scope="col">USN</th>
+        <th scope="col">NAME</th>
+        <th scope="col">PRESENT</th>
+        <th scope="col">ABSENT</th>
+      </tr>
+    </thead>
+    {% for student in attendence%}
+    <tbody>
+      <tr>
+        <th scope="row">{{student["usn"]}}</th>
+        <td>{{student["name"]}}</td>
+        {% if student["present"] == 1%}
+        <td>
+          <input
+            type="radio"
+            name="{{attendence.index(student)+1}}"
+            value="present"
+            checked
+          />
+        </td>
+        <td>
+          <input
+            type="radio"
+            name="{{attendence.index(student)+1}}"
+            value="absent"
+          />
+        </td>
+
+        {%else%}
+        <td>
+          <input
+            type="radio"
+            name="{{attendence.index(student)+1}}"
+            value="present"
+          />
+        </td>
+        <td>
+          <input
+            type="radio"
+            name="{{attendence.index(student)+1}}"
+            value="absent"
+            checked
+          />
+        </td>
+        {%endif%}
+      </tr>
+    </tbody>
+    {%endfor%}
+  </table>
+  <div class="text-center">
+    <input class="btn btn-primary" type="submit" value="SUBMIT" />
+  </div>
+</form>
+{%endif%} {% if not attendence and flag=="edit"%}
+<div class="center">
+  <h2>U have no attendence To edit</h2>
+</div>
+{%endif%} {% if not attendence and flag=="show"%}
+<div class="center">
+  <h2>U have no attendence to show</h2>
+</div>
+{%endif%} {%endblock%}

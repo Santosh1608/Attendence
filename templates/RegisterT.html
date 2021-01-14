@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {%block head%}
+<title>TeacherRegister</title>
+{%endblock%} {% block body %}
+<div class="container back">
+  <h4 style="padding: 15px 0px">Please register as teacher</h4>
+  <form method="post" action="/registerT">
+    <dl>
+      <dt><label for="username">Username</label></dt>
+      <dd>
+        <input
+          class="form-control"
+          id="username"
+          name="name"
+          type="text"
+          placeholder="username"
+          required
+        />
+      </dd>
+
+      <dt><label for="email">Email Address</label></dt>
+      <dd>
+        <input
+          class="form-control"
+          id="email"
+          name="email"
+          type="email"
+          placeholder="email"
+          required
+        />
+      </dd>
+
+      <dt><label for="sub">Select ur Subject</label></dt>
+      <dd>
+        <select name="subject" required>
+          <option value="DBMS">Database managment system</option>
+          <option value="CN">Computer networks</option>
+          <option value="ME">Managment and entrepreneurship</option>
+          <option value="EVS">Environmental studies</option>
+          <option value="ATC">Theory of computation</option>
+          <option value="PYTHON">python</option>
+        </select>
+      </dd>
+      <!-- <input
+      class="form-control"
+      id="sub"
+      name="subject"
+      type="text"
+      placeholder="subject"
+      required
+    /> -->
+
+      <dt><label for="class">Select the class u teach</label></dt>
+      <dd>
+        <select name="classname" required>
+          <option value="csea">CSE-A</option>
+          <option value="cseb">CSE-B</option>
+          <option value="csec">CSE-C</option>
+        </select>
+      </dd>
+      <!-- <input class="form-control" id="class" name="classname" type="text" placeholder="class name" required> -->
+
+      <dt><label for="password">Password</label></dt>
+      <dd>
+        <input
+          class="form-control"
+          id="password"
+          name="password"
+          type="password"
+          placeholder="password"
+          required
+        />
+      </dd>
+
+      <dt><label for="key">Secret Key</label></dt>
+      <dd>
+        <input
+          class="form-control"
+          id="key"
+          name="secret_key"
+          type="password"
+          placeholder="secret key"
+          required
+        />
+      </dd>
+    </dl>
+    <p><input class="btn btn-primary" type="submit" value="Register" /></p>
+  </form>
+
+  {%endblock%}
+</div>

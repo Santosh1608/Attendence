@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{%block head%}
+<title>class_attendence</title>
+{%endblock%}
+{% block body%}
+{% if teachers %}
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">EMAIL</th>
+        <th scope="col">NAME</th>
+        <th scope="col">CLASS</th>
+        <th scope="col">SUBJECT</th>
+        <th scope="col">DELETE</th>
+    </tr>
+    </thead>
+    {% for teacher in teachers%}
+    <tbody>
+    <tr>
+        <th scope="row">{{teacher['email']}}</th>
+        <td>{{teacher['name']}}</td>
+        <td>{{teacher['classname']}}</td>
+        <td>{{teacher['subject']}}</td>
+        <td><a class="card-link" href="/remove_teacher/{{teacher['email']}}">DELETE</a></td>
+    </tr>
+    </tbody>
+    {%endfor%}
+</table>
+{%else%}
+<div class="center">
+    <h1>No teachers registered</h1>
+</div>
+{% endif%}
+{%endblock%}

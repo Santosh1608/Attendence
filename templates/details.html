@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {%block head%}
+<title>Attendence_details</title>
+{%endblock%} {% block body %}
+<div
+  class="container back"
+  style="margin-top: 50px; width: 500px; height: 300px"
+>
+  <form method="POST" action="/show/{{date}}">
+    <dl>
+      <dt><label for="classname">classname</label></dt>
+      <dd>
+        <select name="classname" required>
+          <option value="csea">CSE-A</option>
+          <option value="cseb">CSE-B</option>
+          <option value="csec">CSE-C</option>
+        </select>
+      </dd>
+
+      <dt><label for="sub">subjectcode</label></dt>
+      <dd>
+        <select name="subject" required>
+          <option value="DBMS">Database managment system</option>
+          <option value="CN">Computer networks</option>
+          <option value="ME">Managment and entrepreneurship</option>
+          <option value="EVS">Environmental studies</option>
+          <option value="ATC">Theory of computation</option>
+          <option value="PYTHON">python</option>
+        </select>
+      </dd>
+    </dl>
+    <p><input class="btn btn-primary" type="submit" value="Submit" /></p>
+  </form>
+</div>
+{%endblock%}

@@ -1,0 +1,48 @@
+{% extends 'base.html'%} {% block head%}
+<title>Attendence</title>
+{% endblock%} {% block body %} {% if students %}
+<form action="/give" method="POST">
+  <table class="table" style="margin-bottom: 3px">
+    <thead>
+      <tr>
+        <th scope="col">USN</th>
+        <th scope="col">NAME</th>
+        <th scope="col">PRESENT</th>
+        <th scope="col">ABSENT</th>
+      </tr>
+    </thead>
+    {% for student in students%}
+    <tbody>
+      <tr>
+        <th scope="row">{{student["usn"]}}</th>
+        <td>{{student["name"]}}</td>
+        <td>
+          <input
+            type="radio"
+            name="{{students.index(student)+1}}"
+            value="present"
+          />
+        </td>
+        <td>
+          <input
+            type="radio"
+            name="{{students.index(student)+1}}"
+            value="absent"
+          />
+        </td>
+      </tr>
+    </tbody>
+    {%endfor%}
+  </table>
+  <div class="text-center">
+    <input class="btn btn-primary" type="submit" value="SUBMIT" />
+  </div>
+</form>
+{%else%}
+<div class="center">
+  <h1>U have no students for this class</h1>
+  <p class="text-center">
+    log In as super account to add students for this class
+  </p>
+</div>
+{%endif%} {% endblock%}

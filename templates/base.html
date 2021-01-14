@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- CSS only -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Indie+Flower&family=Nanum+Myeongjo&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Myeongjo&display=swap"
+      rel="stylesheet"
+    />
+    {% block head %} {%endblock%}
+    <style>
+      body {
+        font-family: 'Nanum Myeongjo', serif;
+        font-weight: bold;
+        min-height: 100vh;
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+          ),
+          url('https://cdn.pixabay.com/photo/2015/01/07/16/37/wood-591631_960_720.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        /* background-color: rgb(10, 10, 10); */
+        /* background-blend-mode: lighten; */
+      }
+      table {
+        color: white !important;
+      }
+      select {
+        padding: 0.7rem 1rem;
+        outline-color: steelblue;
+        border: 1px solid rgb(63, 107, 124);
+        border-radius: 5px;
+      }
+      a:link {
+        text-decoration: none;
+      }
+      a:hover,
+      a:active {
+        font-size: 130%;
+      }
+      .text-center {
+        color: white;
+      }
+      .center {
+        position: absolute;
+        color: white;
+        z-index: -100;
+        top: 50%;
+        left: 50%;
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+      }
+      .back::before {
+        position: absolute;
+        z-index: -10;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+      .back {
+        background-color: transparent;
+        padding: 15px;
+        margin-top: 2rem;
+        position: relative;
+        color: white;
+      }
+      .home,
+      .dash {
+        font-family: 'Gloria Hallelujah', cursive;
+        font-size: 200%;
+      }
+      .card-link:hover,
+      .card-link:active {
+        color: red;
+        font-size: 101%;
+      }
+      .card {
+        display: block;
+        float: left;
+        width: 33.33%;
+        text-align: center;
+        border: 1px solid #d3d3d3;
+        border-radius: 0.25rem;
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+        background-color: #ffffff;
+        position: relative;
+        padding: 20px;
+        margin: 1rem 2.5%;
+      }
+      .card-title {
+        font-family: Serif;
+      }
+      .card-text {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.7);
+      }
+      .navbar-custom {
+        background-color: rgb(24, 24, 23) !important;
+      }
+      input[type='search']:focus {
+        border-color: rgba(0, 0, 0, 0.8);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset,
+          0 0 8px rgba(0, 0, 0, 0.9);
+        outline: 0 none;
+      }
+      .navbar-light .navbar-brand {
+        color: rgba(252, 252, 252, 1);
+      }
+      .navbar-light .navbar-brand:focus,
+      .navbar-light .navbar-brand:hover {
+        color: rgba(255, 255, 255, 1);
+      }
+      .navbar-light .navbar-nav .active > .nav-link,
+      .navbar-light .navbar-nav .nav-link.active,
+      .navbar-light .navbar-nav .nav-link.show,
+      .navbar-light .navbar-nav .show > .nav-link {
+        color: rgba(245, 242, 242, 0.925);
+      }
+      .navbar-light .navbar-nav .nav-link {
+        color: rgba(245, 242, 242, 0.863);
+      }
+      .navbar-light .navbar-nav .nav-link:focus,
+      .navbar-light .navbar-nav .nav-link:hover {
+        color: rgba(245, 242, 242, 0.8);
+      }
+      .navbar-light .navbar-nav .nav-link.disabled {
+        color: rgba(245, 242, 242, 0.6);
+      }
+      .navbar-light span.navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-custom navbar-light bg-primary">
+      <a class="navbar-brand" href="/">Home</a>
+      <button
+        class="navbar-toggler navbar-toggle"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/dashboard"
+              >Dashboard<span class="sr-only">(current)</span></a
+            >
+          </li>
+          {%if not session.logged_In%}
+          <li class="nav-item">
+            <a class="nav-link" href="/loginT">Log In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/registerT">Sign Up</a>
+          </li>
+          {%else%}
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">LogOut</a>
+          </li>
+          {%endif%}
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Dropdown
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              {% if 'email' in session %}
+              <a class="dropdown-item" href="/give">Give attendence</a>
+              <a class="dropdown-item" href="/edit">Edit attendence</a>
+              <a class="dropdown-item" href="/show">Show attendence</a>
+              {%else%}
+              <a class="dropdown-item" href="/show">Show attendence</a>
+              {%endif%}
+            </div>
+          </li>
+
+          {% if "hod" in session %}
+          <li class="nav-item">
+            <a class="nav-link" href="/registerS">Add student</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/show_students">Remove student</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/show_teachers">Remove teacher</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link disabled"
+              href="#"
+              tabindex="-1"
+              aria-disabled="true"
+              >Signed In as {{session["name"].capitalize()}}(admin)</a
+            >
+          </li>
+          {%elif "name" in session%}
+          <li class="nav-item">
+            <a
+              class="nav-link disabled"
+              href="#"
+              tabindex="-1"
+              aria-disabled="true"
+              >Signed In as {{session["name"].capitalize()}}</a
+            >
+          </li>
+          {%endif%}
+        </ul>
+        {% if search == 'student'%}
+        <form method="post" action="/search" class="form-inline my-2 my-lg-0">
+          {%if search ==
+          "thttps://cdn.pixabay.com/photo/2015/01/07/16/37/wood-591631_960_720.jpgeacher"%}
+          <input class="form-control mr-sm-2" type="search" placeholder="Search
+          by email"
+          aria-label="Seahttps://cdn.pixabay.com/photo/2015/01/07/16/37/wood-591631_960_720.jpg
+          /> {%else%}
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search by USN"
+            aria-label="Search"
+            name="usn"
+          />
+          {%endif%}
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+        {%endif%}
+      </div>
+    </nav>
+    {% with msgs = get_flashed_messages()%} {% if msgs%} {%for msg in msgs%}
+    <h4 class="text-center">{{msg}}</h4>
+    {%endfor%} {%endif%} {%endwith%} {%block body %} {%endblock%}
+    <!-- JS, Popper.js, and jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Latest compiled and minified JavaScript -->
+  </body>
+</html>

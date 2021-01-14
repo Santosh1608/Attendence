@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+{%block head%}
+<title>TeacherLogin</title>
+{%endblock%}
+
+{% block body %}
+
+<div class="container back">
+    <h3 style="margin-top: 20px;">Please login in as teacher</h3>
+    <br>
+    <form action="/loginT" method="post">
+        <label>Email:</label>
+        <input type="text" class="form-control" placeholder="Email" name="email" value=""><br>
+        <label>Password:</label>
+        <input type="password" class="form-control" placeholder="Password" name="password" value=""><br>
+        <input class="btn" type="submit" value="Login" style="background-color:#FFD166;color:#000">
+    </form>
+
+    <div class="container">
+        <br><p>No account? <a href='/registerT'>Register here</a></p>
+        <p><a href='/forget_password'>Forgot Password?</a></p>
+        <br>
+
+    </div>
+</div>
+
+{%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

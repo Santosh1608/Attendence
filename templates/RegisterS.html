@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {%block head%}
+<title>TeacherRegister</title>
+{%endblock%} {% block body %}
+<div class="container back">
+  <h4 style="margin-top: 20px">Student Register</h4>
+  <form method="post" action="/registerS">
+    <dl>
+      <dt><label for="username">Username</label></dt>
+      <dd>
+        <input
+          class="form-control"
+          id="username"
+          name="name"
+          type="text"
+          value=""
+          required
+        />
+      </dd>
+
+      <dt><label for="usno">Enter USN</label></dt>
+      <dd>
+        <input
+          class="form-control"
+          id="usno"
+          name="usn"
+          type="text"
+          value=""
+          required
+        />
+      </dd>
+
+      <dt><label for="classn">Select classname</label></dt>
+      <dd>
+        <select name="classname" required>
+          <option value="csea">CSE-A</option>
+          <option value="cseb">CSE-B</option>
+          <option value="csec">CSE-C</option>
+        </select>
+      </dd>
+    </dl>
+    <p><input class="btn btn-primary" type="submit" value="Register" /></p>
+  </form>
+
+  {%endblock%}
+</div>

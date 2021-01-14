@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{%block head%}
+<title>class_attendence</title>
+{%endblock%}
+{% block body%}
+    {% if students %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">USN</th>
+                <th scope="col">NAME</th>
+                <th scope="col">CLASS</th>
+                <th scope="col">DELETE</th>
+            </tr>
+            </thead>
+            {% for student in students%}
+                <tbody>
+                <tr>
+                    <th scope="row">{{student['usn']}}</th>
+                    <td>{{student['name']}}</td>
+                    <td>{{student['classname']}}</td>
+                    <td><a class="card-link" href="/remove_student/{{student['usn']}}">DELETE</a></td>
+                </tr>
+                </tbody>
+            {%endfor%}
+        </table>
+    {%else%}
+        <div class="center">
+            <h1>No students registered yet</h1>
+            <p class="text-center"><a href="/registerS">Please register students first</a></p>
+        </div>
+    {% endif%}
+{%endblock%}

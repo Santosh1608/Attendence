@@ -1,0 +1,25 @@
+{% extends 'base.html'%}
+{% block head%}
+<title>Attendence</title>
+{% endblock%}
+{% block body %}
+{% if dates %}
+{%for date in dates %}
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Day{{dates.index(date)+1}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{date["date"]}}</h6>
+        <p class="card-text">You can edit the attendence Now. click on below link</p>
+        <a href="/edit/{{date['date']}}" class="card-link">Edit attendence</a>
+    </div>
+</div>
+{%endfor%}
+{%else%}
+    <div class="center">
+        <h1>No attendence to edit</h1>
+    </div>
+
+
+{%endif%}
+
+{% endblock%}
