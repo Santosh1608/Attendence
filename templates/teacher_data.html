@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student_Data</title>
+    <title>teacher_data</title>
     <style>
-      .student {
+      .teacher {
         padding: 2rem;
         border: 1px solid rgb(231, 224, 224);
         position: relative;
@@ -14,7 +14,7 @@
         width: 60%;
         margin: auto;
       }
-      .student::before {
+      .teacher::before {
         content: '';
         position: absolute;
         top: 0;
@@ -23,7 +23,7 @@
         height: 100%;
         background: rgba(0, 0, 0, 0.4);
       }
-      .student p {
+      .teacher p {
         font-size: 2rem;
         position: relative;
         z-index: 1;
@@ -46,10 +46,12 @@
   </head>
   <body>
     <div class="cover">
-      <div class="student">
-        <p><strong>NAME: </strong>{{student_data[3]}}</p>
-        <p><strong>PLACE: </strong>{{student_data[0]}}</p>
-        <p><strong>PINCODE: </strong>{{student_data[1]}}</p>
+      <div class="teacher">
+        <p><strong>NAME: </strong>{{teacher_data[5]}}</p>
+        <p><strong>DEGREE: </strong>{{teacher_data[1]}}</p>
+        <p><strong>AGE: </strong>{{teacher_data[2]}}</p>
+        <p><strong>SEX: </strong>{{teacher_data[4]}}</p>
+        <p><strong>Ph No: </strong>{{teacher_data[3]}}</p>
       </div>
     </div>
   </body>

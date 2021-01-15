@@ -114,6 +114,8 @@ def registerT():
                             .format(request.form["name"], password, request.form["email"],
                                     request.form["subject"], request.form["classname"],
                                     request.form["secret_key"]))
+                        c.execute("INSERT INTO teacher_details (email,degree,age,phno,sex) VALUES ('{}','{}','{}','{}','{}')".format(
+                            request.form['email'], request.form['degree'], request.form['age'], request.form['phno'], request.form['sex']))
                         conn.commit()
                         session["logged_In"] = True
                         session["email"] = request.form["email"]
@@ -402,6 +404,8 @@ def remove_teacher(email):
         x = c.fetchall()
         if len(x) > 0:
             c.execute("DELETE FROM teachers where email = '{}'".format(email))
+            c.execute(
+                "DELETE FROM teacher_details where email = '{}'".format(email))
             conn.commit()
             flash('U have succesfully unregistered teacher')
             return redirect('/show_teachers')
@@ -526,6 +530,20 @@ def student_details(usn, name):
         return render_template('student_data.html', student_data=student_data)
     except:
         return redirect('/dashboard')
+
+
+@app.route('/teacher/<string:email>/<string:name>')
+@login_required
+def teacher_details(email, name):
+    try:
+        c, conn = connection()
+        c.execute("SELECT * FROM teacher_details where email = '{}'".format(email))
+        teacher_data = c.fetchone()
+        teacher_data.append(name)
+        print(teacher_data)
+        return render_template('teacher_data.html', teacher_data=teacher_data)
+    except:
+        return redirect('/show_teachers')
 
 
 if __name__ == "__main__":
