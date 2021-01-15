@@ -17,10 +17,10 @@ mail = Mail(app)
 def send_mail(gmail):
     try:
         with app.app_context():
-            otp = randint(100000,999999)
+            otp = randint(100000, 999999)
             msg = Message(subject="OTP", sender=app.config.get("MAIL_USERNAME"), recipients=[gmail],
                           body="{}".format(otp))
             mail.send(msg)
-        return True,otp
+        return True, otp
     except:
-        return False,0
+        return False, 0

@@ -24,20 +24,31 @@
       body {
         font-family: 'Nanum Myeongjo', serif;
         font-weight: bold;
+        position: relative;
         min-height: 100vh;
         background-image: linear-gradient(
-            rgba(0, 0, 0, 0.5),
-            rgba(0, 0, 0, 0.5)
+            rgba(0, 0, 0, 0.9),
+            rgba(0, 0, 0, 0.9)
           ),
-          url('https://cdn.pixabay.com/photo/2015/01/07/16/37/wood-591631_960_720.jpg');
-        background-repeat: no-repeat;
+          url('https://images.pexels.com/photos/169573/pexels-photo-169573.jpeg?cs=srgb&dl=pexels-negative-space-169573.jpg&fm=jpg');
+        background-repeat: repeat;
         background-position: center;
         background-size: cover;
         /* background-color: rgb(10, 10, 10); */
         /* background-blend-mode: lighten; */
       }
+      tr:last-child {
+        border-bottom: 2px solid white;
+      }
+      tr.high {
+        cursor: pointer;
+      }
       table {
         color: white !important;
+        border: 1px solid white;
+        width: 70% !important;
+        margin: auto;
+        margin-top: 1rem;
       }
       select {
         padding: 0.7rem 1rem;
@@ -50,7 +61,7 @@
       }
       a:hover,
       a:active {
-        font-size: 130%;
+        color: springgreen;
       }
       .text-center {
         color: white;
@@ -58,7 +69,7 @@
       .center {
         position: absolute;
         color: white;
-        z-index: -100;
+        z-index: 100;
         top: 50%;
         left: 50%;
         -moz-transform: translateX(-50%) translateY(-50%);
@@ -90,7 +101,6 @@
       .card-link:hover,
       .card-link:active {
         color: red;
-        font-size: 101%;
       }
       .card {
         display: block;
@@ -148,6 +158,9 @@
       .navbar-light span.navbar-toggler-icon {
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
         color: white;
+      }
+      .alert {
+        background: rgb(53, 53, 53);
       }
     </style>
   </head>
@@ -264,7 +277,7 @@
       </div>
     </nav>
     {% with msgs = get_flashed_messages()%} {% if msgs%} {%for msg in msgs%}
-    <h4 class="text-center">{{msg}}</h4>
+    <h4 class="text-center alert">{{msg}}</h4>
     {%endfor%} {%endif%} {%endwith%} {%block body %} {%endblock%}
     <!-- JS, Popper.js, and jQuery -->
     <script

@@ -1,10 +1,30 @@
-{% extends 'base.html'%}
-{% block head%}
+{% extends 'base.html'%} {% block head%}
 <title>Dashboard</title>
-{% endblock%}
+{% endblock%} {% block body %}
+<table class="table" style="margin-bottom: 3px">
+  {%if students%}
+  <thead>
+    <tr>
+      <th scope="col">USN</th>
+      <th scope="col">NAME</th>
+    </tr>
+  </thead>
+  {% for student in students%}
 
-{% block body %}
-<div class="center home">
-    <h1 class="text-center pt-5 home">WELCOME TO DASHBOARD</h1>
-</div>
+  <tbody>
+    <tr class="high">
+      <th scope="row">{{student["usn"]}}</th>
+      <td>
+        <a href="/student/{{student['usn']}}/{{student['name']}}"
+          >{{student["name"]}}</a
+        >
+      </td>
+    </tr>
+  </tbody>
+  {%endfor%} {%else%}
+  <div class="center">
+    <h1>No students registered yet</h1>
+  </div>
+  {% endif%}
+</table>
 {% endblock%}

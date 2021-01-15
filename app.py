@@ -2,10 +2,8 @@ from flask import Flask, render_template, request, flash, redirect, session
 from passlib.hash import sha256_crypt
 from database import connection
 from functools import wraps
-# git remote add origin https://github.com/Santosh1608/s.git
-# git remote add origin https://github.com/Santosh1608/s.git
+
 app = Flask(__name__)
-# git push -u origin main
 app.secret_key = "asfeiuwfbiwe132298423489"
 
 
@@ -29,7 +27,24 @@ def home():
 @app.route('/dashboard')
 @login_required
 def dash():
-    return render_template('dashboard.html')
+    email = session['email']
+    try:
+        c, conn = connection()
+        c.execute("SELECT * FROM teachers where email = '{}'".format(email))
+        teacher = c.fetchone()
+        classname = teacher["classname"]
+        subject = teacher["subject"]
+        teachername = teacher["name"]
+        teacheremail = teacher["email"]
+        c.execute("SELECT * FROM student_data WHERE classname = '{}'"
+                  .format(classname))
+        students_data = c.fetchall()
+        if len(students_data) == 0:
+            students_data = False
+        print(students_data, "0-------------------------")
+        return render_template('dashboard.html', students=students_data)
+    except:
+        return redirect('/loginT')
 
 
 @app.route('/loginT', methods=['GET', 'POST'])
@@ -155,6 +170,7 @@ def registerT():
 def registerS():
     try:
         if request.method == 'POST':
+            print(request.form['place'], request.form['pin'])
             c, conn = connection()
             c.execute(
                 "SELECT * FROM student_data WHERE usn = '{}'".format(request.form["usn"]))
@@ -165,6 +181,8 @@ def registerS():
             else:
                 c.execute("INSERT INTO student_data (name,usn,classname) VALUES ('{}','{}','{}')".
                           format(request.form['name'], request.form['usn'], request.form['classname']))
+                c.execute("INSERT INTO student_details (usn,place,pin) VALUES ('{}','{}','{}')".
+                          format(request.form['usn'], request.form['place'], request.form['pin']))
                 conn.commit()
                 flash("Succesfully {} registered".format(request.form['name']))
                 return redirect('/dashboard')
@@ -188,7 +206,8 @@ def logout():
 def show():
     try:
         c, conn = connection()
-        c.execute("SELECT MIN(uid) AS uid,date FROM students GROUP BY date")
+        c.execute(
+            "SELECT MIN(uid) AS uid,date FROM students GROUP BY date ORDER BY date")
         dates = c.fetchall()
         print(dates)
         return render_template('show_attendence.html', dates=dates)
@@ -278,7 +297,8 @@ def give():
 def edit():
     try:
         c, conn = connection()
-        c.execute("SELECT MIN(uid) AS uid,date FROM students GROUP BY date")
+        c.execute(
+            "SELECT MIN(uid) AS uid,date FROM students GROUP BY date ORDER BY date")
         dates = c.fetchall()
         return render_template('edit_attendence.html', dates=dates)
     except:
@@ -361,6 +381,7 @@ def remove_student(usn):
         x = c.fetchall()
         if len(x) > 0:
             c.execute("DELETE FROM student_data where usn = '{}'".format(usn))
+            c.execute("DELETE FROM student_details where usn = '{}'".format(usn))
             conn.commit()
             flash('U have succesfully unregistered student')
             return redirect('/show_students')
@@ -368,7 +389,7 @@ def remove_student(usn):
             flash('student is not registered to delete')
             return redirect('/show_students')
     except:
-        flash("Somthing went wrong")
+        flash("Something went wrong")
         return redirect('/dash')
 
 
@@ -491,6 +512,20 @@ def update_password():
     except:
         flash("Something went wrong with database try again")
         return redirect("/loginT")
+
+
+@app.route('/student/<string:usn>/<string:name>')
+@login_required
+def student_details(usn, name):
+    try:
+        c, conn = connection()
+        c.execute("SELECT * FROM student_details where usn = '{}'".format(usn))
+        student_data = c.fetchone()
+        student_data.append(name)
+        print(student_data)
+        return render_template('student_data.html', student_data=student_data)
+    except:
+        return redirect('/dashboard')
 
 
 if __name__ == "__main__":

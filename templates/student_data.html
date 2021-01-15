@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student_Data</title>
+    <style>
+      .student {
+        padding: 2rem;
+        border: 1px solid rgb(231, 224, 224);
+        position: relative;
+        background: transparent;
+        color: white;
+      }
+      .student::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+      }
+      .student p {
+        font-size: 2rem;
+        position: relative;
+        z-index: 1;
+      }
+      .cover {
+        min-height: 100vh;
+        background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbE_NzSazZJj1695NXIsEoCF4wTrgOhNu-YA&usqp=CAU')
+          center center/cover;
+      }
+      .cover::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cover">
+      <div class="student">
+        <p><strong>NAME: </strong>{{student_data[3]}}</p>
+        <p><strong>PLACE: </strong>{{student_data[0]}}</p>
+        <p><strong>PINCODE: </strong>{{student_data[1]}}</p>
+      </div>
+    </div>
+  </body>
+</html>
