@@ -1,0 +1,46 @@
+{% extends 'base.html'%} {% block head%}
+<title>Dashboard</title>
+{% endblock%} {% block body %}
+<table class="table" style="margin-bottom: 3px">
+  {%if students%}
+  <thead>
+    <tr>
+      <th scope="col">USN</th>
+      <th scope="col">NAME</th>
+      <th scope="col">Attendence Percentage</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  {% for student in students%}
+
+  <tbody>
+    <tr class="high">
+      <th scope="row">{{student[0]}}</th>
+      <td>{{student[1]}}</td>
+      <td>{{student[6]}}</td>
+      <td class="status">{{student[5]}}</td>
+    </tr>
+  </tbody>
+  {%endfor%} {%else%}
+  <div class="center">
+    <h1>No attendence given yet</h1>
+  </div>
+  {% endif%}
+</table>
+<script>
+  console.log('HELLO');
+  const status = document.querySelectorAll('.status');
+  status.forEach((s) => {
+    console.log(s.textContent);
+    if (s.textContent == 'Good') {
+      s.style.color = 'green';
+    }
+    if (s.textContent == 'Poor') {
+      s.style.color = 'red';
+    }
+    if (s.textContent == 'Average') {
+      s.style.color = 'yellow';
+    }
+  });
+</script>
+{% endblock%}

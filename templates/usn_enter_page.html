@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {%block head%}
+<title>Attendence</title>
+{%endblock%} {% block body %}
+
+<div class="container back">
+  <br />
+  <form action="/show_student_attendence" method="POST">
+    <label>enter USN:</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="UR USN"
+      name="usn"
+      value=""
+      required
+    /><br />
+    <label for="sub">Select ur Subject</label>
+    <select name="subject" required>
+      <option value="DBMS">Database managment system</option>
+      <option value="CN">Computer networks</option>
+      <option value="ME">Managment and entrepreneurship</option>
+      <option value="EVS">Environmental studies</option>
+      <option value="ATC">Theory of computation</option>
+      <option value="PYTHON">python</option>
+    </select>
+    <input class="btn btn-primary" type="submit" value="Submit" />
+  </form>
+</div>
+
+{%endblock%}

@@ -109,7 +109,7 @@ def registerT():
                         password = sha256_crypt.encrypt(
                             request.form["password"])
                         c.execute(
-                            """INSERT INTO teachers (name,password,email,subject,classname,secret_key) 
+                            """INSERT INTO teachers (name,password,email,subject,classname,secret_key)
                             VALUES ('{}','{}','{}','{}','{}','{}')"""
                             .format(request.form["name"], password, request.form["email"],
                                     request.form["subject"], request.form["classname"],
@@ -140,7 +140,7 @@ def registerT():
                         password = sha256_crypt.encrypt(
                             request.form["password"])
                         c.execute(
-                            """INSERT INTO teachers (name,password,email,subject,classname,secret_key) 
+                            """INSERT INTO teachers (name,password,email,subject,classname,secret_key)
                             VALUES ('{}','{}','{}','{}','{}','{}')"""
                             .format(request.form["name"], password, request.form["email"],
                                     request.form["subject"], request.form["classname"],
@@ -207,6 +207,10 @@ def logout():
 @app.route("/show")
 def show():
     try:
+        try:
+            session['email']
+        except:
+            return render_template('usn_enter_page.html')
         c, conn = connection()
         c.execute(
             "SELECT MIN(uid) AS uid,date FROM students GROUP BY date ORDER BY date")
@@ -546,5 +550,88 @@ def teacher_details(email, name):
         return redirect('/show_teachers')
 
 
+@app.route('/show_student_attendence', methods=['POST'])
+def show_student_attendence():
+    try:
+        print(request.form['usn'], request.form['subject'])
+        c, conn = connection()
+        c.execute("SELECT * FROM students WHERE usn = '{}' AND subject = '{}' ORDER BY date".format(
+            request.form['usn'], request.form['subject']))
+        student_attendence = c.fetchall()
+        print(student_attendence)
+        return render_template('show_student_attendence.html', attendence=student_attendence)
+    except:
+        return redirect('/')
+
+
+@app.route('/show_statistics')
+@login_required
+def show_statistics():
+    email = session['email']
+    try:
+        c, conn = connection()
+        c.execute("SELECT * FROM teachers where email = '{}'".format(email))
+        teacher = c.fetchone()
+        classname = teacher["classname"]
+        subject = teacher["subject"]
+        print(subject, classname)
+        c.execute(
+            "SELECT usn,name,present FROM students where classname = '{}' and subject = '{}'".format(classname, subject))
+        stu = c.fetchall()
+        statics = []
+        print('___________________________________________________________________________')
+        print(stu)
+        print('___________________________________________________________________________')
+        for i in stu:
+            arr = []
+            arr.append(i[0])
+            arr.append(i[1])
+            arr.append(0)
+            arr.append(0)
+            arr.append(0)
+            pcount = 0
+            acount = 0
+            total = 0
+            for j in stu:
+                if(i[0] == j[0] and i[2] == 1):
+                    arr[2] = pcount + 1
+                elif(i[0] == j[0] and i[2] == 0):
+                    arr[3] = acount + 1
+                arr[4] = total + 1
+            statics.append(arr)
+        print(statics)
+        stats = []
+        usns = set()
+        cc = 0
+        kk = 0
+        for i in statics:
+            if i[0] not in usns:
+                stats.append(i)
+                cc = cc + 1
+            else:
+                stats[kk][2] = stats[kk][2] + i[2]
+                stats[kk][3] = stats[kk][3] + i[3]
+                stats[kk][4] = stats[kk][4] + i[4]
+                kk = kk + 1
+            usns.add(i[0])
+            if(cc == kk):
+                kk = 0
+        print(usns)
+        print(stats)
+        for per in stats:
+            percent = (per[2]/per[4])*100
+            if(percent > 75):
+                per.append('Good')
+            elif(percent >= 50):
+                per.append('Average')
+            else:
+                per.append('Poor')
+            per.append(str(percent)+'%')
+
+        return render_template('statistics.html', students=stats)
+    except:
+        return redirect('/dashboard')
+
+
 if __name__ == "__main__":
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=8080)
